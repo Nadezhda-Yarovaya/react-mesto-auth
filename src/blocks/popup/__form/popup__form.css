@@ -1,0 +1,25 @@
+.popup__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 358px;
+  min-height: 330px;
+  padding: 34px 0 37px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+@media screen and (max-width: 680px) {
+  .popup__form {
+    max-width: 320px;
+    padding: 25px 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .popup__form {
+    max-width: 238px;
+    min-height: 322px;
+  }
+}

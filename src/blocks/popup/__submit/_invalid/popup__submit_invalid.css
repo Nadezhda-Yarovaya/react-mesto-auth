@@ -1,0 +1,10 @@
+.popup__submit_invalid {
+  color: rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.popup__submit_invalid:hover {
+  cursor: auto;
+  background-color: white;
+}

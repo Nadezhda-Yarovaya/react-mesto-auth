@@ -1,0 +1,11 @@
+.main__profile-section {
+  margin: 40px 0 50px 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+@media screen and (max-width: 680px) {
+  .main__profile-section {
+    margin: 41px 0 36px;
+  }
+}

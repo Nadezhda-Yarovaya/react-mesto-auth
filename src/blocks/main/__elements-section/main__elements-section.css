@@ -1,0 +1,14 @@
+.main__elements-section {
+  margin: 0 0 66px 0;
+  box-sizing: border-box;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 680px) {
+  .main__elements-section {
+    margin: 0 0 50px 0;
+  }
+}

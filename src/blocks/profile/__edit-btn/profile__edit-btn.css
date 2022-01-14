@@ -1,0 +1,46 @@
+.profile__edit-btn {
+  border: 1px solid white;
+  background-color: transparent;
+  background-image: url(../../../images/edit.svg);
+  background-size: 10px 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  margin: 0 0 0 18px;
+  text-align: center;
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  transition: opacity 0.4s ease;
+}
+
+.profile__edit-btn:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 1080px) {
+  .profile__edit-btn {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .profile__edit-btn {
+    width: 24px;
+    height: 24px;
+    background-size: 9px 9px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile__edit-btn {
+    position: absolute;
+    right: -28px;
+    bottom: 5px;
+    width: 18px;
+    height: 18px;
+    background-size: 7.5px 7.5px;
+  }
+}

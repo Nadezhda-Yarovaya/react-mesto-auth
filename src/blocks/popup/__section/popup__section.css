@@ -1,0 +1,19 @@
+.popup__section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 0 13px 0;
+}
+
+.popup__section:last-of-type {
+    margin: 0 0 31.34px 0;
+}
+
+@media screen and (max-width: 450px) {
+    .popup__section {
+        padding: 0 0 10px 0;
+    }
+    .popup__section:nth-last-of-type(2) {
+        margin: 0 0 27px 0;
+    }
+}

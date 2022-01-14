@@ -1,0 +1,21 @@
+.popup__form-update {
+    width: 100%;
+    min-height: 100px;
+    max-width: 420px;
+    padding: 34px 36px 36px;
+}
+
+@media screen and (max-width: 680px) {
+    .popup__form-update {
+        max-width: 310px;
+        padding: 25px 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .popup__form-update {
+        max-width: 230px;
+        padding: 25px 0;
+        min-height: 70px;
+    }
+}
