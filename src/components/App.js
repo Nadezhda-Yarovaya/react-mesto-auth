@@ -29,22 +29,25 @@ function App() {
   const [saveButtonNewPlace, setSaveButtonNewPlace] = useState('Создать');
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loginText, setLoginText] = useState('Зарегистрироваться');
 
-  const [text, setText] = useState('d');
+  const [text, setText] = useState('');
 
   const history= useHistory();
 
   function userLogout() {
        setText('');
+       setLoginText('Зарегистрироваться');
         }
 
   useEffect(() => {
-    tokenCheck();
-    
+    tokenCheck();    
   }, [loggedIn]);
 
   useEffect(() => {
     handleRequest();
+    
+    renderCards();
   }, []);
 
   function handleRequest() {
@@ -67,10 +70,6 @@ function App() {
     setCurrentCard(card);
   }
 
-  useEffect(() => {
-    renderCards();
-  }, []);
-
   const handleCardClick = (card) => {
     setSelectedCard(card);
     openPopupImage(true);
@@ -83,8 +82,6 @@ function App() {
     openPopupImage(false);
     openPopupDelete(false);
   };
-
-
 
   const handleEditAvatarClick = () => {
     editAvatarPopup(true);
@@ -195,7 +192,6 @@ function App() {
       });
   }
 
-
   function handleAddPlaceSubmit(cardName, cardLink, handleClear) {
     api.postNewCard({
       name: cardName,
@@ -211,8 +207,7 @@ function App() {
         updateSaveButNewPlace('Создать');
       });
   }
-  //handleUpdateUser это текст можно в main app перенести стейтовые переменные а может и многие функции 
-
+  
   function tokenCheck() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
@@ -233,6 +228,7 @@ function App() {
                                //setUserdata(userData);
                                console.log('userdataemail: ' + userData.email);                              
     setText(userData.email);
+    setLoginText('Выйти');
 
                             }
                      });
@@ -251,7 +247,7 @@ function App() {
           <>
             <div className="App">
               <div className="page">
-              <Header loggedIn={loggedIn} text={text} userLogout={userLogout}/>
+              <Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText}/>
                 <Switch>
                   <Route path="/" exact>
                   {(loggedIn === false) && <Redirect to="/sign-up" />}
@@ -288,10 +284,9 @@ function App() {
 
                   
                   </Route>
-                  <ProtectedRoute path="/some-other" loggedIn={loggedIn} component={SomeOther} mainText="Text to show" />
                   <Route path="/sign-up"><Register /></Route>
                   <Route path="/signin"><Login handleLogin={handleLogin} loggedIn={loggedIn} /></Route>
-                  <Route path="*">    <PageNotFound /></Route>
+                  <Route path="*"> {(loggedIn === false) && <Redirect to="/sign-up" />}</Route>
                 </Switch>
               </div> </div>
           </>

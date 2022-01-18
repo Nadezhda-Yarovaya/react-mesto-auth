@@ -1,10 +1,12 @@
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {Link, withRouter, useHistory} from 'react-router-dom';
 
-import { useState, useEffect, useHistory } from 'react';
+import { useState, useEffect  } from 'react';
 import * as auth from '../utils/auth.js';
 
 function Register(props) {
+
+    const history = useHistory();
     const [userdata, setUserData] = useState({
         username: '',
         password: ''
@@ -52,7 +54,7 @@ function Register(props) {
        .then((res) => {
         if(res){
 
-            setUserData({message: ''}, () => { props.history.push('/signin');});
+            setUserData({message: ''}, () => { history.push('/signin');});
         } else {
             setUserData({ message: 'Что-то пошло не так!'   });
         }
@@ -73,7 +75,7 @@ function Register(props) {
         </input>
         <input placeholder="password" className="register-input" id="password" name="password" type="password" value={userdata.password || ''} onChange={handleChange}></input>
         <input type="submit" value="Зарегистрироваться" className="register-submit" />
-        <div className="register-to-login"><p className="register__par">Уже зарегистрированы? </p><Link to="/" className="register__link">Войти</Link></div>
+        <div className="register-to-login"><p className="register__par">Уже зарегистрированы? </p><Link to="/signin" className="register__link">Войти</Link></div>
         </form> 
     </main>
 </>

@@ -23,13 +23,13 @@ const Header = (props) => {
           />
         </Link>
         <Link to="/sign-up">Register, sign up</Link>
-        <Link to="/some-other">Some Other</Link>
+        <Link to="/ssssssssss">Some Other</Link>
         <Link to="/signin">Log In</Link>
 
         <p className="header__email">{props.text}</p>
 
       
-        <button onClick={signOut} className="exit-button">Выйти</button>
+        <button onClick={signOut} className="header__login-button">{props.loginText}</button>
       </header>  
     );
 }

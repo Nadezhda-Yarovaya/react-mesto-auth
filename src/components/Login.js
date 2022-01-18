@@ -68,7 +68,7 @@ function Login(props) {
         <input type="email" placeholder="login" className="register-input" id="username" name="username" value={userdata.username || ''} onChange={handleChange}>
         </input>
         <input placeholder="password" className="register-input" id="password" name="password" type="password" value={userdata.password || ''} onChange={handleChange}></input>
-        <input type="submit" value="Войти" className="register-submit" />
+        <input type="submit" value="Вход" className="register-submit" />
         </form> 
     </main>
 </>
