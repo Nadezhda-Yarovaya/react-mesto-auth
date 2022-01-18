@@ -55,3 +55,89 @@
 @import url(./blocks/popup/__image/popup__image.css);
 @import url(./blocks/popup/__img-paragraph/popup__img-paragraph.css);
 @import url(./blocks/popup/_type/popup_type_image.css);
+
+.pagenotf {
+  color: white;
+}
+
+.register {
+  width: 100%;
+  max-width: 320px;
+  /*border: 1px solid grey;*/
+  margin: 100px 0 0 0;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__title {
+  color: white;
+  font-size: 24px;
+  font-family: 'Inter';
+  max-width: 150px;
+  line-height: 29.05px;
+  /*border: 2px solid purple;*/
+  margin: 0 0 40px 0;
+}
+
+.register-input {
+  width: 100%;
+  background-color: transparent;
+  border-top: 0;
+  border-left:0;
+  border-right: 0;
+  border-bottom: 2px solid #CCC;
+  outline: 0;
+  margin: 0 0 20px 0; 
+  color: grey;
+  padding: 0 0 10px 0;
+  font-size: 12px;
+}
+
+.register-submit {
+  width: 100%;
+  margin: 200px 0 0 0;
+  padding: 13px 20px;
+  background-color: white;
+  border-radius: 2px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 21.78px;
+}
+
+.register-to-login {
+  display: flex; 
+  margin: 10px 0 0 0;
+}
+
+.register__par {
+  color: white;
+  font-size: 13px;
+  margin: 0 15px 0 0;
+}
+
+.register__link {
+text-decoration: none;
+color: white;
+cursor: pointer;
+font-size: 13px;
+
+}
+
+.header__email {
+  font-size: 18px;
+  color: white;
+  font-family: 'Inter'
+}
+
+.temp__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exit-button {
+  cursor: pointer;
+}

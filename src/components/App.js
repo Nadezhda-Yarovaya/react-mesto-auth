@@ -1,19 +1,20 @@
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
+
 import React from 'react';
 import api from '../utils/api.js';
-import { useState, useEffect, useContext } from 'react';
-import ImagePopup from './ImagePopup';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import DeleteCardPopup from './DeleteCardPopup';
+import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import { Route, Switch, Redirect, withRouter, useHistory } from 'react-router-dom';
+import MainApp from './MainApp';
+import Header from './Header';
+import SomeOther from './SomeOther';
+import PageNotFound from './PageNotFound';
+import Register from './Register';
+import Login from './Login';
+import ProtectedRoute from "./ProtectedRoute";
+import * as auth from '../utils/auth.js';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-
   const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, addPlacePopup] = useState(false);
   const [isEditAvatarPopupOpen, editAvatarPopup] = useState(false);
@@ -26,6 +27,21 @@ function App() {
   const [saveButtonAvatar, setSaveButtonAvatar] = useState('Отправить');
   const [saveButtonDelete, setSaveButDelete] = useState('Да');
   const [saveButtonNewPlace, setSaveButtonNewPlace] = useState('Создать');
+
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const [text, setText] = useState('d');
+
+  const history= useHistory();
+
+  function userLogout() {
+       setText('');
+        }
+
+  useEffect(() => {
+    tokenCheck();
+    
+  }, [loggedIn]);
 
   useEffect(() => {
     handleRequest();
@@ -68,9 +84,7 @@ function App() {
     openPopupDelete(false);
   };
 
-  const handleEditProfileClick = () => {
-    editProfilePopup(true);
-  };
+
 
   const handleEditAvatarClick = () => {
     editAvatarPopup(true);
@@ -110,7 +124,7 @@ function App() {
           job: result.about,
           avatar: result.avatar
         };
-        setCurrentUser(resultProfileData);        
+        setCurrentUser(resultProfileData);
         handleClear();
         closeAllPopups();
       })
@@ -188,7 +202,7 @@ function App() {
       link: cardLink
     })
       .then((newCard) => {
-        setCards([newCard, ...cards]);        
+        setCards([newCard, ...cards]);
         handleClear();
         closeAllPopups();
       })
@@ -197,36 +211,93 @@ function App() {
         updateSaveButNewPlace('Создать');
       });
   }
+  //handleUpdateUser это текст можно в main app перенести стейтовые переменные а может и многие функции 
 
-  return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <>
-        <div className="App">
-          <div className="page">
-            <Header />
-
-            <Main onEditProfile={handleEditProfileClick} onEditAvatar={handleEditAvatarClick} onAddPlace={handleAddPlaceClick} onCardClickMain={handleCardClick}
-              onCardLike={handleCardLike} onCardDelete={handleCardDeleteClick} allCards={cards} />
-
-            <Footer />
-
-            <ImagePopup card={selectedCard} isOpen={isPopupImageOpen} onClose={closeAllPopups} />
-
-            <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} onEditButText={updateSaveButEdit} saveButton={saveButtonEdit} />
-
-            <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} onEditButText={updateSaveButAvatar} saveButton={saveButtonAvatar} />
-
-            <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddNewPlace={handleAddPlaceSubmit}
-              onEditButText={updateSaveButNewPlace} saveButton={saveButtonNewPlace} />
-
-            <DeleteCardPopup isOpen={isDeletePopupOpen} onClose={closeAllPopups} onDeletePopup={handleCardDelete} currentCard={currentCard} onEditButText={updateSaveButDelete} saveButton={saveButtonDelete} />
+  function tokenCheck() {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      console.log('jwt tokenCheck: ' + jwt);
 
 
-          </div>
-        </div>
-      </>
-    </CurrentUserContext.Provider>
-  );
-}
+              if (jwt) {
+                    auth.getContent(jwt).then((res) => {
+                  if (res) {
 
-export default App;
+                    const userData = {
+                      email: res.data.email
+                    }
+
+                             setLoggedIn(true);
+                              history.push("/");
+                               
+                               //setUserdata(userData);
+                               console.log('userdataemail: ' + userData.email);                              
+    setText(userData.email);
+
+                            }
+                     });
+                    }
+                  }
+                }
+
+                /* here */
+  function handleLogin() {
+    setLoggedIn(true);
+    tokenCheck();     
+      }
+
+      return (
+        <CurrentUserContext.Provider value={currentUser}>
+          <>
+            <div className="App">
+              <div className="page">
+              <Header loggedIn={loggedIn} text={text} userLogout={userLogout}/>
+                <Switch>
+                  <Route path="/" exact>
+                  {(loggedIn === false) && <Redirect to="/sign-up" />}
+
+                    <MainApp
+                      handleLogin={handleLogin}
+                      handleEditAvatarClick={handleEditAvatarClick}
+                      handleAddPlaceClick={handleAddPlaceClick}
+                      handleCardClick={handleCardClick}
+                      handleCardLike={handleCardLike}
+                      handleCardDeleteClick={handleCardDeleteClick}
+                      cards={cards}
+                      selectedCard={selectedCard}
+                      isPopupImageOpen={isPopupImageOpen}
+                      closeAllPopups={closeAllPopups}
+                      isEditProfilePopupOpen={isEditProfilePopupOpen}
+                      handleUpdateUser={handleUpdateUser}
+                      updateSaveButEdit={updateSaveButEdit}
+                      saveButtonEdit={saveButtonEdit}
+                      isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                      handleUpdateAvatar={handleUpdateAvatar}
+                      updateSaveButAvatar={updateSaveButAvatar}
+                      saveButtonAvatar={saveButtonAvatar}
+                      isAddPlacePopupOpen={isAddPlacePopupOpen}
+                      handleAddPlaceSubmit={handleAddPlaceSubmit}
+                      updateSaveButNewPlace={updateSaveButNewPlace}
+                      saveButtonNewPlace={saveButtonNewPlace}
+                      isDeletePopupOpen={isDeletePopupOpen}
+                      handleCardDelete={handleCardDelete}
+                      currentCard={currentCard}
+                      updateSaveButDelete={updateSaveButDelete}
+                      saveButtonDelete={saveButtonDelete}
+                    />
+
+                  
+                  </Route>
+                  <ProtectedRoute path="/some-other" loggedIn={loggedIn} component={SomeOther} mainText="Text to show" />
+                  <Route path="/sign-up"><Register /></Route>
+                  <Route path="/signin"><Login handleLogin={handleLogin} loggedIn={loggedIn} /></Route>
+                  <Route path="*">    <PageNotFound /></Route>
+                </Switch>
+              </div> </div>
+          </>
+        </CurrentUserContext.Provider>
+      );
+    }
+
+    export default withRouter(App);
+
