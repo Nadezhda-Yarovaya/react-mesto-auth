@@ -14,6 +14,25 @@ import ProtectedRoute from "./ProtectedRoute";
 import * as auth from '../utils/auth.js';
 
 function App() {
+
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginText, setLoginText] = useState('Зарегистрироваться');
+  const [text, setText] = useState('');
+  const history = useHistory();
+  function userLogout() {
+    setText('');
+    setLoginText('Зарегистрироваться');
+    setLoggedIn(false);
+  }
+
+  useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
+
+
+
   const [currentUser, setCurrentUser] = useState({});
   const [isEditProfilePopupOpen, editProfilePopup] = useState(false);
   const [isAddPlacePopupOpen, addPlacePopup] = useState(false);
@@ -28,25 +47,12 @@ function App() {
   const [saveButtonDelete, setSaveButDelete] = useState('Да');
   const [saveButtonNewPlace, setSaveButtonNewPlace] = useState('Создать');
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [loginText, setLoginText] = useState('Зарегистрироваться');
 
-  const [text, setText] = useState('');
 
-  const history= useHistory();
-
-  function userLogout() {
-       setText('');
-       setLoginText('Зарегистрироваться');
-        }
-
-  useEffect(() => {
-    tokenCheck();    
-  }, [loggedIn]);
 
   useEffect(() => {
     handleRequest();
-    
+
     renderCards();
   }, []);
 
@@ -89,6 +95,10 @@ function App() {
 
   const handleAddPlaceClick = () => {
     addPlacePopup(true);
+  };
+
+  const handleEditProfileClick = () => {
+    editProfilePopup(true);
   };
 
   const handleCardDeleteClick = (card) => {
@@ -207,92 +217,87 @@ function App() {
         updateSaveButNewPlace('Создать');
       });
   }
-  
+
+  /* */
   function tokenCheck() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
-      console.log('jwt tokenCheck: ' + jwt);
 
+      if (jwt) {
+        auth.getContent(jwt).then((res) => {
+          if (res) {
 
-              if (jwt) {
-                    auth.getContent(jwt).then((res) => {
-                  if (res) {
+            const userData = {
+              email: res.data.email
+            }
+            setLoggedIn(true);
+            history.push("/");
+            setText(userData.email);
+            setLoginText('Выйти');
 
-                    const userData = {
-                      email: res.data.email
-                    }
+          }
+        });
+      }
+    }
+  }
 
-                             setLoggedIn(true);
-                              history.push("/");
-                               
-                               //setUserdata(userData);
-                               console.log('userdataemail: ' + userData.email);                              
-    setText(userData.email);
-    setLoginText('Выйти');
-
-                            }
-                     });
-                    }
-                  }
-                }
-
-                /* here */
+  /* here */
   function handleLogin() {
     setLoggedIn(true);
-    tokenCheck();     
-      }
+    tokenCheck();
+  }
+//     {(loggedIn === false) && <Redirect to="/sign-up" />}
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <>
+        <div className="App">
+          <div className="page">
 
-      return (
-        <CurrentUserContext.Provider value={currentUser}>
-          <>
-            <div className="App">
-              <div className="page">
-              <Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText}/>
-                <Switch>
-                  <Route path="/" exact>
-                  {(loggedIn === false) && <Redirect to="/sign-up" />}
+            <Switch>
+            <Route path="/sign-up"><Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText="Вход" headerAction="/signin" /><Register /></Route>
+              <Route path="/signin"><Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText="Регистрация" headerAction="/signup" />
+                <Login handleLogin={handleLogin} loggedIn={loggedIn} /></Route>
+                
+            <ProtectedRoute path="/" component={MainApp} loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText} 
+                  handleLogin={handleLogin}
+                  handleEditAvatarClick={handleEditAvatarClick}
+                  handleAddPlaceClick={handleAddPlaceClick}
+                  handleCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
+                  handleCardDeleteClick={handleCardDeleteClick}
+                  cards={cards}
+                  selectedCard={selectedCard}
+                  isPopupImageOpen={isPopupImageOpen}
+                  closeAllPopups={closeAllPopups}
+                  isEditProfilePopupOpen={isEditProfilePopupOpen}
+                  handleUpdateUser={handleUpdateUser}
+                  updateSaveButEdit={updateSaveButEdit}
+                  saveButtonEdit={saveButtonEdit}
+                  isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                  handleUpdateAvatar={handleUpdateAvatar}
+                  updateSaveButAvatar={updateSaveButAvatar}
+                  saveButtonAvatar={saveButtonAvatar}
+                  isAddPlacePopupOpen={isAddPlacePopupOpen}
+                  handleAddPlaceSubmit={handleAddPlaceSubmit}
+                  updateSaveButNewPlace={updateSaveButNewPlace}
+                  saveButtonNewPlace={saveButtonNewPlace}
+                  isDeletePopupOpen={isDeletePopupOpen}
+                  handleCardDelete={handleCardDelete}
+                  currentCard={currentCard}
+                  updateSaveButDelete={updateSaveButDelete}
+                  saveButtonDelete={saveButtonDelete}
+                  handleEditProfileClick={handleEditProfileClick}
+                >
+              </ProtectedRoute>
+       
+              <ProtectedRoute path="*" component={PageNotFound} loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText} >
+              </ProtectedRoute>
+            </Switch>
+          </div> </div>
+      </>
+    </CurrentUserContext.Provider>
+  );
+}
 
-                    <MainApp
-                      handleLogin={handleLogin}
-                      handleEditAvatarClick={handleEditAvatarClick}
-                      handleAddPlaceClick={handleAddPlaceClick}
-                      handleCardClick={handleCardClick}
-                      handleCardLike={handleCardLike}
-                      handleCardDeleteClick={handleCardDeleteClick}
-                      cards={cards}
-                      selectedCard={selectedCard}
-                      isPopupImageOpen={isPopupImageOpen}
-                      closeAllPopups={closeAllPopups}
-                      isEditProfilePopupOpen={isEditProfilePopupOpen}
-                      handleUpdateUser={handleUpdateUser}
-                      updateSaveButEdit={updateSaveButEdit}
-                      saveButtonEdit={saveButtonEdit}
-                      isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-                      handleUpdateAvatar={handleUpdateAvatar}
-                      updateSaveButAvatar={updateSaveButAvatar}
-                      saveButtonAvatar={saveButtonAvatar}
-                      isAddPlacePopupOpen={isAddPlacePopupOpen}
-                      handleAddPlaceSubmit={handleAddPlaceSubmit}
-                      updateSaveButNewPlace={updateSaveButNewPlace}
-                      saveButtonNewPlace={saveButtonNewPlace}
-                      isDeletePopupOpen={isDeletePopupOpen}
-                      handleCardDelete={handleCardDelete}
-                      currentCard={currentCard}
-                      updateSaveButDelete={updateSaveButDelete}
-                      saveButtonDelete={saveButtonDelete}
-                    />
-
-                  
-                  </Route>
-                  <Route path="/sign-up"><Register /></Route>
-                  <Route path="/signin"><Login handleLogin={handleLogin} loggedIn={loggedIn} /></Route>
-                  <Route path="*"> {(loggedIn === false) && <Redirect to="/sign-up" />}</Route>
-                </Switch>
-              </div> </div>
-          </>
-        </CurrentUserContext.Provider>
-      );
-    }
-
-    export default withRouter(App);
+export default withRouter(App);
 

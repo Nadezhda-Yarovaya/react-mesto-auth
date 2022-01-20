@@ -8,13 +8,12 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import DeleteCardPopup from './DeleteCardPopup';
+import Header from './Header';
 
 const MainApp = (props) => {
-
-  
-
     return (
         <>
+        <Header loggedIn={props.loggedIn} userLogout={props.userLogout} text={props.text} headerAction={props.headerAction} loginText={props.loginText}/>     
       
             <Main onEditProfile={props.handleEditProfileClick} onEditAvatar={props.handleEditAvatarClick} onAddPlace={props.handleAddPlaceClick} onCardClickMain={props.handleCardClick}
               onCardLike={props.handleCardLike} onCardDelete={props.handleCardDeleteClick} allCards={props.cards} />

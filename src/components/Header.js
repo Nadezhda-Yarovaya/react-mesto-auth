@@ -9,27 +9,31 @@ const Header = (props) => {
   function signOut(){
     localStorage.removeItem('jwt');
     props.userLogout();
-    history.push('/signin');
-  }
-
- 
+    history.push('/signin'); } 
 
     return (
-        <header className="header page__header temp__header">
+        <header className="header page__header">
         <Link to="/" className="header__logo-link">
           <img src={mainLogo}
             alt="Логотип Место Россия"
             className="header__logo"
           />
-        </Link>
-        <Link to="/sign-up">Register, sign up</Link>
-        <Link to="/ssssssssss">Some Other</Link>
-        <Link to="/signin">Log In</Link>
+        </Link>        
 
-        <p className="header__email">{props.text}</p>
-
-      
+       <div className="temp__header">
+        { props.loggedIn ? (
+          <>
+           <p className="header__email">{props.text}</p>      
         <button onClick={signOut} className="header__login-button">{props.loginText}</button>
+        </>
+        )  :
+        ( 
+          props.headerAction ? (<Link to={props.headerAction} className="header__link-button">{props.loginText}</Link>) : (
+            <p className="header__email">сработало нелогед ин?</p>   )
+        )
+        
+}
+</div>
       </header>  
     );
 }

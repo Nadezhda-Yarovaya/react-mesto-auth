@@ -56,19 +56,32 @@
 @import url(./blocks/popup/__img-paragraph/popup__img-paragraph.css);
 @import url(./blocks/popup/_type/popup_type_image.css);
 
-.pagenotf {
+.not-found__title {
+  
   color: white;
+  font-size: 26px;
+
+}
+.not-found__link {
+  color: white;
+  font-size: 20px;
 }
 
+.not-found {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
 .register {
   width: 100%;
-  max-width: 320px;
+  max-width: 358px;
   /*border: 1px solid grey;*/
-  margin: 100px 0 0 0;
+  margin: 60px 0 0 0;
   min-height: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0;
 }
 
 .register__title {
@@ -77,11 +90,13 @@
   font-family: 'Inter';
   max-width: 150px;
   line-height: 29.05px;
+  font-weight: 900;
   /*border: 2px solid purple;*/
-  margin: 0 0 40px 0;
+  margin: 0 0 50px 0;
+  padding: 0;
 }
 
-.register-input {
+.register__input {
   width: 100%;
   background-color: transparent;
   border-top: 0;
@@ -89,15 +104,18 @@
   border-right: 0;
   border-bottom: 2px solid #CCC;
   outline: 0;
-  margin: 0 0 20px 0; 
+  margin:0 0 30px 0;   
+  padding: 0 0 13px 0;
   color: grey;
-  padding: 0 0 10px 0;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 16.94px;
+  font-family: 'Inter';
 }
+
 
 .register-submit {
   width: 100%;
-  margin: 200px 0 0 0;
+  margin: 186px 0 0 0;
   padding: 13px 20px;
   background-color: white;
   border-radius: 2px;
@@ -130,12 +148,14 @@ font-size: 13px;
 .header__email {
   font-size: 18px;
   color: white;
-  font-family: 'Inter'
+  font-family: 'Inter';
+  padding: 0;
+  margin: 0 24px 0 0;
 }
 
 .temp__header {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .header__login-button {
@@ -148,4 +168,47 @@ font-size: 13px;
   font-size: 18px;
   line-height: 22px;
   font-family: 'Inter';
+}
+
+
+.header__link-button {
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(161, 161, 161);
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: 'Inter';
+  text-decoration: none;
+}
+
+.register-popup {
+  flex-direction: column;  
+  min-height: 330px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 430px;
+  padding: 0;
+  margin: 0;
+}
+
+.register-popup__logo {
+  width: 120px;
+  height: 120px;
+}
+
+.register-popup__text {
+font-family: 'Inter';
+font-size: 24px;
+font-weight: 900;
+line-height: 29.04px;
+max-width: 358px;
+text-align: center;
+
+padding: 0;
+margin: 32px 0 0 0;
 }
