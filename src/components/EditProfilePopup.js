@@ -30,7 +30,7 @@ const EditProfilePopup = (props) => {
     setDescription(currentUser.job);
 
   }, [currentUser, props.isOpen]);
- 
+
   function handleClear() {
     setName('');
     setDescription('');
@@ -38,7 +38,7 @@ const EditProfilePopup = (props) => {
     setValidMessageName('');
     setInputValidDesc(true);
     setValidMessageJob('');
-}
+  }
 
   function handleSubmit(e) {
     e.preventDefault();

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, withRouter, useHistory } from 'react-router-dom';
-
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import * as auth from '../utils/auth.js';
 import InfoTooltip from './InfoTooltip';
 
@@ -44,7 +43,7 @@ function Register(props) {
                         closeRegisterPopup();
                         setUserData({ message: '' });
                         history.push('/signin');
-                    }, 1100
+                    }, 1200
                     );
 
                 } else {
@@ -54,9 +53,8 @@ function Register(props) {
                     setTimeout(() => {
                         setUserData({ message: 'Что-то пошло не так!' });
                         closeRegisterPopup();
-                    }, 1100
+                    }, 1200
                     );
-
                 }
             })
             .catch(err => console.log('Ошибка соединения: ' + err));
@@ -70,8 +68,8 @@ function Register(props) {
                     <input type="email" placeholder="Email" className="register__input" id="username" name="username" value={userdata.username || ''} onChange={handleChange}>
                     </input>
                     <input placeholder="Пароль" className="register__input" id="password" name="password" type="password" value={userdata.password || ''} onChange={handleChange}></input>
-                    <input type="submit" value="Зарегистрироваться" className="register-submit" />
-                    <div className="register-to-login"><p className="register__par">Уже зарегистрированы? </p><Link to="/signin" className="register__link">Войти</Link></div>
+                    <input type="submit" value="Зарегистрироваться" className="register__submit" />
+                    <div className="register__already-registered-text"><p className="register__par">Уже зарегистрированы? </p><Link to="/signin" className="register__link">Войти</Link></div>
                 </form>
             </main>
             <InfoTooltip isOpen={popupRegisterIsOpen} successOrNot={successOrNot} onClose={closeRegisterPopup} />

@@ -1,0 +1,11 @@
+.register-popup {
+  flex-direction: column;
+  min-height: 330px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 430px;
+  padding: 0;
+  margin: 0;
+}

@@ -1,9 +1,8 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const AddPlacePopup = (props) => {
-
     const [name, setName] = useState('');
     const [link, setLink] = useState('');
     const [inputValidName, setInputValidName] = useState(false);

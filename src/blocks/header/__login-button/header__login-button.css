@@ -1,0 +1,11 @@
+.header__login-button {
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(161, 161, 161);
+  padding: 10px 5px;
+  border: 0;
+  outline: 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: "Inter";
+}

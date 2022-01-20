@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
-
 import { useState } from 'react';
 import * as auth from '../utils/auth.js';
 
@@ -34,7 +33,7 @@ function Login(props) {
                     setUserData({ username: '', password: '' });
                     props.handleLogin();
                     history.push('/');
-                
+
                 }
             })
             .catch(err => console.log('user wasnt found: ' + err));
@@ -47,7 +46,7 @@ function Login(props) {
                     <input type="email" placeholder="Email" className="register__input" id="username" name="username" value={userdata.username || ''} onChange={handleChange}>
                     </input>
                     <input placeholder="Пароль" className="register__input" id="password" name="password" type="password" value={userdata.password || ''} onChange={handleChange}></input>
-                    <input type="submit" value="Вход" className="register-submit" />
+                    <input type="submit" value="Вход" className="register__submit" />
                 </form>
             </main>
         </>

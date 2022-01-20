@@ -1,0 +1,10 @@
+.register__title {
+  color: white;
+  font-size: 24px;
+  font-family: "Inter";
+  max-width: 150px;
+  line-height: 29.05px;
+  font-weight: 900;
+  margin: 0 0 50px 0;
+  padding: 0;
+}

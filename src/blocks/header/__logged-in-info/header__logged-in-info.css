@@ -1,0 +1,4 @@
+.header__logged-in-info {
+  display: flex;
+  align-items: center;
+}

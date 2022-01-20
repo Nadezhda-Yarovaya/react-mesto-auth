@@ -1,13 +1,10 @@
-
 import React from 'react';
 import api from '../utils/api.js';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
-import { Route, Switch, Redirect, withRouter, useHistory } from 'react-router-dom';
+import { Route, Switch, withRouter, useHistory } from 'react-router-dom';
 import MainApp from './MainApp';
 import Header from './Header';
-import SomeOther from './SomeOther';
-import PageNotFound from './PageNotFound';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from "./ProtectedRoute";
@@ -246,7 +243,7 @@ function App() {
     setLoggedIn(true);
     tokenCheck();
   }
-//     {(loggedIn === false) && <Redirect to="/sign-up" />}
+  //     {(loggedIn === false) && <Redirect to="/sign-up" />}
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <>
@@ -254,44 +251,43 @@ function App() {
           <div className="page">
 
             <Switch>
-            <Route path="/sign-up"><Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText="Вход" headerAction="/signin" /><Register /></Route>
+              <Route path="/sign-up"><Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText="Вход" headerAction="/signin" /><Register /></Route>
               <Route path="/signin"><Header loggedIn={loggedIn} text={text} userLogout={userLogout} loginText="Регистрация" headerAction="/signup" />
                 <Login handleLogin={handleLogin} loggedIn={loggedIn} /></Route>
-                
-            <ProtectedRoute path="/" component={MainApp} loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText} 
-                  handleLogin={handleLogin}
-                  handleEditAvatarClick={handleEditAvatarClick}
-                  handleAddPlaceClick={handleAddPlaceClick}
-                  handleCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
-                  handleCardDeleteClick={handleCardDeleteClick}
-                  cards={cards}
-                  selectedCard={selectedCard}
-                  isPopupImageOpen={isPopupImageOpen}
-                  closeAllPopups={closeAllPopups}
-                  isEditProfilePopupOpen={isEditProfilePopupOpen}
-                  handleUpdateUser={handleUpdateUser}
-                  updateSaveButEdit={updateSaveButEdit}
-                  saveButtonEdit={saveButtonEdit}
-                  isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-                  handleUpdateAvatar={handleUpdateAvatar}
-                  updateSaveButAvatar={updateSaveButAvatar}
-                  saveButtonAvatar={saveButtonAvatar}
-                  isAddPlacePopupOpen={isAddPlacePopupOpen}
-                  handleAddPlaceSubmit={handleAddPlaceSubmit}
-                  updateSaveButNewPlace={updateSaveButNewPlace}
-                  saveButtonNewPlace={saveButtonNewPlace}
-                  isDeletePopupOpen={isDeletePopupOpen}
-                  handleCardDelete={handleCardDelete}
-                  currentCard={currentCard}
-                  updateSaveButDelete={updateSaveButDelete}
-                  saveButtonDelete={saveButtonDelete}
-                  handleEditProfileClick={handleEditProfileClick}
-                >
+
+              <ProtectedRoute path="/" component={MainApp} loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText}
+                handleLogin={handleLogin}
+                handleEditAvatarClick={handleEditAvatarClick}
+                handleAddPlaceClick={handleAddPlaceClick}
+                handleCardClick={handleCardClick}
+                handleCardLike={handleCardLike}
+                handleCardDeleteClick={handleCardDeleteClick}
+                cards={cards}
+                selectedCard={selectedCard}
+                isPopupImageOpen={isPopupImageOpen}
+                closeAllPopups={closeAllPopups}
+                isEditProfilePopupOpen={isEditProfilePopupOpen}
+                handleUpdateUser={handleUpdateUser}
+                updateSaveButEdit={updateSaveButEdit}
+                saveButtonEdit={saveButtonEdit}
+                isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+                handleUpdateAvatar={handleUpdateAvatar}
+                updateSaveButAvatar={updateSaveButAvatar}
+                saveButtonAvatar={saveButtonAvatar}
+                isAddPlacePopupOpen={isAddPlacePopupOpen}
+                handleAddPlaceSubmit={handleAddPlaceSubmit}
+                updateSaveButNewPlace={updateSaveButNewPlace}
+                saveButtonNewPlace={saveButtonNewPlace}
+                isDeletePopupOpen={isDeletePopupOpen}
+                handleCardDelete={handleCardDelete}
+                currentCard={currentCard}
+                updateSaveButDelete={updateSaveButDelete}
+                saveButtonDelete={saveButtonDelete}
+                handleEditProfileClick={handleEditProfileClick}
+              >
               </ProtectedRoute>
-       
-              <ProtectedRoute path="*" component={PageNotFound} loggedIn={loggedIn} text={text} userLogout={userLogout} loginText={loginText} >
-              </ProtectedRoute>
+
+
             </Switch>
           </div> </div>
       </>

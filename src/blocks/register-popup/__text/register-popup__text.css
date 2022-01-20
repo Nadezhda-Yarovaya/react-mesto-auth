@@ -1,0 +1,10 @@
+.register-popup__text {
+  font-family: "Inter";
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29.04px;
+  max-width: 358px;
+  text-align: center;
+  padding: 0;
+  margin: 32px 0 0 0;
+}
