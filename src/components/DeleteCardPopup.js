@@ -10,8 +10,7 @@ const DeleteCardPopup = (props) => {
 
     return (
         <PopupWithForm name="delete" title="Вы уверены?" isOpen={props.isOpen} onClose={props.onClose}
-            saveButton={props.saveButton} onSubmit={handleSubmit} isValid={true}
-            isLoading={props.isLoading}
+            saveButton={props.saveButton} onSubmit={handleSubmit} isValid={true}  isLoading={props.isLoading}
             creationText={props.creationText}  >
             <label className="popup__label">
             </label>

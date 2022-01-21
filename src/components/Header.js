@@ -16,8 +16,7 @@ const Header = (props) => {
       <div className="header__logged-in-info">
         {props.loggedIn ? (
           <>
-            <p className="header__email">{props.headerEmail}</p>
-            <button onClick={props.signOut} className="header__login-button">Выйти</button>
+            <p className="header__email">{props.headerEmail}</p><button onClick={props.signOut} className="header__login-button">Выйти</button>
           </>
         ) :
           (
