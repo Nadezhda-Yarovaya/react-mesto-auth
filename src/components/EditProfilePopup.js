@@ -42,7 +42,7 @@ const EditProfilePopup = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onEditButText('Сохранение...');
+    props.changeSaveText();
     props.onUpdateUser({
       name,
       job: description,
@@ -50,11 +50,11 @@ const EditProfilePopup = (props) => {
   }
 
   const validityClassNameOnName = (
-    `popup__input popup__input_type_name ${!inputValidName && 'popup__input_state_invalid'}`
+    `popup__input popup__input_type_name ${inputValidName ? '' : 'popup__input_state_invalid'}`
   );
 
   const validityClassNameOnJob = (
-    `popup__input popup__input_type_job ${!inputValidJob && 'popup__input_state_invalid'}`
+    `popup__input popup__input_type_job ${inputValidJob ? '' : 'popup__input_state_invalid'}`
   );
 
   const formValidity = (
@@ -62,7 +62,8 @@ const EditProfilePopup = (props) => {
   );
 
   return (
-    <PopupWithForm name={"edit-profile"} title="Редактировать профиль" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={formValidity}>
+    <PopupWithForm name={"edit-profile"} title="Редактировать профиль" isOpen={props.isOpen}
+      onClose={props.onClose} isLoading={props.isLoading} onSubmit={handleSubmit} isValid={formValidity}>
       <label className="popup__label">
         <section className="popup__section">
           <input

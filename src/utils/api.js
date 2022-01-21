@@ -68,25 +68,22 @@ class Api {
     );
   }
 
-  _likes(methodToUse, cardId) {
+  _manageLikes(methodToUse, cardId) {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
       method: methodToUse,
       headers: this._headers,
     }).then(this._checkResponse);
   }
 
-  changeLikeCardStatus(cardId, isLiked) {    
+  changeLikeCardStatus(cardId, isLiked) {
     if (isLiked) {
-      return this._likes("DELETE", cardId);
+      return this._manageLikes("DELETE", cardId);
     } else {
       console.log('false: ' + isLiked);
-    return this._likes("PUT", cardId);
+      return this._manageLikes("PUT", cardId);
     }
   }
 
- /* deleteLikes(cardId) {
-    return this._likes("DELETE", cardId);
-  }*/
 }
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",

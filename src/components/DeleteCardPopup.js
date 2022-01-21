@@ -4,13 +4,15 @@ import PopupWithForm from './PopupWithForm';
 const DeleteCardPopup = (props) => {
     function handleSubmit(e) {
         e.preventDefault();
-        props.onEditButText('Удаление...');
+        props.changeSaveText();
         props.onDeletePopup(props.currentCard);
     }
 
     return (
-
-        <PopupWithForm name="delete" title="Вы уверены?" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={true}>
+        <PopupWithForm name="delete" title="Вы уверены?" isOpen={props.isOpen} onClose={props.onClose}
+            saveButton={props.saveButton} onSubmit={handleSubmit} isValid={true}
+            isLoading={props.isLoading}
+            creationText={props.creationText}  >
             <label className="popup__label">
             </label>
         </PopupWithForm>

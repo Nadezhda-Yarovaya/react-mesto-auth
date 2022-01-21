@@ -12,20 +12,12 @@ const EditAvatarPopup = (props) => {
     const isValid = avatarRef.current.validity.valid;
     setInputValidAvatar(isValid);
     setValidMessageAvatar(avatarRef.current.validationMessage);
-    setAvatarClass(isValid);
-  }
-
-  function setAvatarClass(isValid) {
-    const validityClassNameOnAvatar = (
-      `popup__input popup__input_type_avatar ${!isValid && 'popup__input_state_invalid'}`
-    );
-    setInputAvatarClass(validityClassNameOnAvatar);
+    setInputAvatarClass(`popup__input popup__input_type_avatar ${isValid ? '' : 'popup__input_state_invalid'}`);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onEditButText('Сохранение...');
-
+    props.changeSaveText(true);
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
     }, handleClear);
@@ -38,7 +30,10 @@ const EditAvatarPopup = (props) => {
   }
 
   return (
-    <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} validOrNotForm={inputValidAvatar}>
+    <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={props.isOpen}
+      onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} isValid
+      ={inputValidAvatar}
+      isLoading={props.isLoading} >
       <label className="popup__label">
         <section className="popup__section">
           <input

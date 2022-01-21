@@ -1,4 +1,6 @@
 .register__already-registered-text {
   display: flex;
   margin: 10px 0 0 0;
+  padding: 0;
+  align-items: center;
 }
