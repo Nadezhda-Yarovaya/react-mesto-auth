@@ -1,16 +1,16 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import { useState, useEffect, useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import React from "react";
+import PopupWithForm from "./PopupWithForm";
+import { useState, useEffect, useContext } from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 const EditProfilePopup = (props) => {
   const currentUser = useContext(CurrentUserContext);
   const [inputValidName, setInputValidName] = useState(true);
   const [inputValidJob, setInputValidDesc] = useState(true);
-  const [validMessageName, setValidMessageName] = useState('');
-  const [validMessageJob, setValidMessageJob] = useState('');
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [validMessageName, setValidMessageName] = useState("");
+  const [validMessageJob, setValidMessageJob] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   function changeName(e) {
     setName(e.target.value);
@@ -28,49 +28,55 @@ const EditProfilePopup = (props) => {
     handleClear();
     setName(currentUser.name);
     setDescription(currentUser.job);
-
   }, [currentUser, props.isOpen]);
 
   function handleClear() {
-    setName('');
-    setDescription('');
+    setName("");
+    setDescription("");
     setInputValidName(true);
-    setValidMessageName('');
+    setValidMessageName("");
     setInputValidDesc(true);
-    setValidMessageJob('');
+    setValidMessageJob("");
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.changeSaveText();
-    props.onUpdateUser({
-      name,
-      job: description,
-    }, handleClear);
+    props.onUpdateUser(
+      {
+        name,
+        job: description,
+      },
+      handleClear
+    );
   }
 
-  const validityClassNameOnName = (
-    `popup__input popup__input_type_name ${inputValidName ? '' : 'popup__input_state_invalid'}`
-  );
+  const validityClassNameOnName = `popup__input popup__input_type_name ${
+    inputValidName ? "" : "popup__input_state_invalid"
+  }`;
 
-  const validityClassNameOnJob = (
-    `popup__input popup__input_type_job ${inputValidJob ? '' : 'popup__input_state_invalid'}`
-  );
+  const validityClassNameOnJob = `popup__input popup__input_type_job ${
+    inputValidJob ? "" : "popup__input_state_invalid"
+  }`;
 
-  const formValidity = (
-    inputValidName && inputValidJob
-  );
+  const formValidity = inputValidName && inputValidJob;
 
   return (
-    <PopupWithForm name={"edit-profile"} title="Редактировать профиль" isOpen={props.isOpen}
-      onClose={props.onClose} isLoading={props.isLoading} onSubmit={handleSubmit} isValid={formValidity}>
+    <PopupWithForm
+      name={"edit-profile"}
+      title="Редактировать профиль"
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      isLoading={props.isLoading}
+      onSubmit={handleSubmit}
+      isValid={formValidity}
+    >
       <label className="popup__label">
         <section className="popup__section">
           <input
             type="text"
             className={validityClassNameOnName}
             placeholder="ФИО"
-            value={props.isOpen ? (name) : ''}
+            value={props.isOpen ? name : ""}
             onChange={changeName}
             name="profileName"
             required
@@ -79,7 +85,9 @@ const EditProfilePopup = (props) => {
             id="name-input"
             autoComplete="off"
           />
-          <span className="popup__input-error name-input-error">{validMessageName}</span>
+          <span className="popup__input-error name-input-error">
+            {validMessageName}
+          </span>
         </section>
 
         <section className="popup__section">
@@ -88,7 +96,7 @@ const EditProfilePopup = (props) => {
             className={validityClassNameOnJob}
             placeholder="должность"
             name="job"
-            value={description || ''}
+            value={description || ""}
             onChange={changeDesc}
             required
             minLength="2"
@@ -96,11 +104,12 @@ const EditProfilePopup = (props) => {
             id="job-input"
             autoComplete="off"
           />
-          <span className="popup__input-error job-input-error">{validMessageJob}</span>
+          <span className="popup__input-error job-input-error">
+            {validMessageJob}
+          </span>
         </section>
       </label>
-
     </PopupWithForm>
   );
-}
+};
 export default EditProfilePopup;

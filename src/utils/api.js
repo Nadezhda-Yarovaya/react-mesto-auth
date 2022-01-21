@@ -68,22 +68,14 @@ class Api {
     );
   }
 
-  _manageLikes(methodToUse, cardId) {
+  changeLikeCardStatus(cardId, isLiked) {
+    const method = isLiked ? "DELETE" : "PUT";
+
     return fetch(`${this._url}/cards/likes/${cardId}`, {
-      method: methodToUse,
+      method: method,
       headers: this._headers,
     }).then(this._checkResponse);
   }
-
-  changeLikeCardStatus(cardId, isLiked) {
-    if (isLiked) {
-      return this._manageLikes("DELETE", cardId);
-    } else {
-      console.log('false: ' + isLiked);
-      return this._manageLikes("PUT", cardId);
-    }
-  }
-
 }
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-30",

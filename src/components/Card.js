@@ -1,21 +1,21 @@
-import React from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { useContext } from 'react';
+import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 const Card = (props) => {
   const currentUser = useContext(CurrentUserContext);
 
   const isOwn = props.card.owner._id === currentUser.id;
 
-  const cardDeleteButtonClassName = (
-    `elements__delete ${!isOwn && 'elements__delete_hidden'}`
-  );
+  const cardDeleteButtonClassName = `elements__delete ${
+    !isOwn && "elements__delete_hidden"
+  }`;
 
-  const isLiked = props.card.likes.some(i => i._id === currentUser.id);
+  const isLiked = props.card.likes.some((i) => i._id === currentUser.id);
 
-  const cardLikeButtonClassName = (
-    `elements__like ${isLiked && ' elements__like_active'}`
-  );
+  const cardLikeButtonClassName = `elements__like ${
+    isLiked && " elements__like_active"
+  }`;
 
   function handleClick() {
     props.onCardClick(props.card);
@@ -37,7 +37,12 @@ const Card = (props) => {
         className={cardDeleteButtonClassName}
         onClick={handleDeleteClick}
       ></button>
-      <img className="elements__image-btn" src={props.card.link} onClick={handleClick} alt={props.card.name} />
+      <img
+        className="elements__image-btn"
+        src={props.card.link}
+        onClick={handleClick}
+        alt={props.card.name}
+      />
       <div className="elements__title-container">
         <h2 className="elements__title">{props.card.name}</h2>
         <div className="elements__like-cont">
@@ -52,6 +57,6 @@ const Card = (props) => {
       </div>
     </>
   );
-}
+};
 
 export default Card;

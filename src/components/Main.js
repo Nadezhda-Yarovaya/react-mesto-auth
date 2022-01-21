@@ -1,9 +1,8 @@
-
-import editImg from '../images/edit-avatar.svg';
-import React from 'react';
-import { useContext } from 'react';
-import Card from './Card.js';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import editImg from "../images/edit-avatar.svg";
+import React from "react";
+import { useContext } from "react";
+import Card from "./Card.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Main = (props) => {
   const context = useContext(CurrentUserContext);
@@ -14,7 +13,11 @@ const Main = (props) => {
         <div className="profile__avatar-cont">
           <img className="profile__avatar" src={context.avatar} alt="Аватар" />
           <div className="profile__av-overlay" onClick={props.onEditAvatar}>
-            <img className="profile__av-overlay-edit-pic" src={editImg} alt="изменить аватар" />
+            <img
+              className="profile__av-overlay-edit-pic"
+              src={editImg}
+              alt="изменить аватар"
+            />
           </div>
         </div>
 
@@ -38,21 +41,20 @@ const Main = (props) => {
         ></button>
       </section>
       <section className="elements main__elements-section">
-        <ul className="elements__list">{props.allCards.map((card) => (
-          <li className="elements__element" key={card._id}>
-            <Card
-              card={card}
-              onCardClick={props.onCardClickMain}
-              onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
-            />
-          </li>
-        )
-        )
-        }</ul>
+        <ul className="elements__list">
+          {props.allCards.map((card) => (
+            <li className="elements__element" key={card._id}>
+              <Card
+                card={card}
+                onCardClick={props.onCardClickMain}
+                onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}
+              />
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );
-
-}
+};
 export default Main;
