@@ -30,8 +30,8 @@ const Header = (props) => {
 
       <div className="header__logged-in-info">
       <Switch>
-              <Route path="/signin">Регистрация</Route>
-              <Route path="/sign-up">ВХОД</Route>
+              <Route path="/signin">Регистрация </Route>
+              <Route path="/sign-up">ВХОД </Route>
               <ProtectedRoute path="/" loggedIn={props.loggedIn}>пишу что хочу</ProtectedRoute>
               </Switch>
         
