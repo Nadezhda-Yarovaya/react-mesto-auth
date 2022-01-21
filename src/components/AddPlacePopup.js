@@ -57,15 +57,14 @@ const AddPlacePopup = (props) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        props.changeSaveText();
         props.onAddNewPlace(name, link, handleClear);
     }
 
     return (
         <PopupWithForm name="newplace" title="Новое место" isOpen={props.isOpen} onClose={props.onClose}
-            saveButton={props.saveButton} onSubmit={handleSubmit}
+            saveButton='Добавить' onSubmit={handleSubmit}
             isLoading={props.isLoading}
-            creationText={props.creationText}
+            creationText='Создание...'
             isValid={formValidity}>
 
             <label className="popup__label">
