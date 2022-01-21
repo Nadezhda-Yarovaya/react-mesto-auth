@@ -34,17 +34,10 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ password, email })
   })
     .then(response => response.json())
-    .then((data) => {
-      if (data.token) {
-        console.log('jwt: ' + data.token);
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-    })
     .catch(err => console.log(err))
 };
 
-export const getContent = (token) => {
+export const getToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
@@ -54,5 +47,4 @@ export const getContent = (token) => {
     }
   })
     .then(res => res.json())
-    .then(data => data)
 } 

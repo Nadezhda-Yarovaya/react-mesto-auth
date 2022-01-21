@@ -57,13 +57,16 @@ const AddPlacePopup = (props) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        props.onEditButText('Создание...');
+        props.changeSaveText();
         props.onAddNewPlace(name, link, handleClear);
     }
 
     return (
-        <PopupWithForm name="newplace" title="Новое место" isOpen={props.isOpen} onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit}
-            validOrNotForm={formValidity}>
+        <PopupWithForm name="newplace" title="Новое место" isOpen={props.isOpen} onClose={props.onClose}
+            saveButton={props.saveButton} onSubmit={handleSubmit}
+            isLoading={props.isLoading}
+            creationText={props.creationText}
+            isValid={formValidity}>
 
             <label className="popup__label">
                 <section className="popup__section">
@@ -71,7 +74,7 @@ const AddPlacePopup = (props) => {
                         type="text"
                         className={inputNameClass}
                         placeholder="Название Места"
-                        value={props.isOpen ? (name || '') : ''}
+                        value={name || ''}
                         onChange={checkValidityName}
                         required
                         name="name"

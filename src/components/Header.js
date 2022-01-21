@@ -1,15 +1,8 @@
 import mainLogo from '../images/mainlogo.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = (props) => {
-
-  const history = useHistory();
-
-  function signOut() {
-    localStorage.removeItem('jwt');
-    props.userLogout();
-    history.push('/signin');
-  }
+  const location = useLocation();
 
   return (
     <header className="header page__header">
@@ -23,13 +16,11 @@ const Header = (props) => {
       <div className="header__logged-in-info">
         {props.loggedIn ? (
           <>
-            <p className="header__email">{props.text}</p>
-            <button onClick={signOut} className="header__login-button">{props.loginText}</button>
+            <p className="header__email">{props.headerEmail}</p><button onClick={props.signOut} className="header__login-button">Выйти</button>
           </>
         ) :
           (
-            props.headerAction ? (<Link to={props.headerAction} className="header__link-button">{props.loginText}</Link>) : (
-              <p className="header__email">сработало нелогед ин?</p>)
+            <Link to={location.pathname === '/signin' ? './sign-up' : './signin'} className="header__link-button">{location.pathname === '/signin' ? 'Регистрация' : 'Войти'}</Link>
           )
 
         }
