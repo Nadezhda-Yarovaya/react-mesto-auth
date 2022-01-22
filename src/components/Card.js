@@ -3,6 +3,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { useContext } from "react";
 
 const Card = (props) => {
+  /* чтобы каждый раз к пропсу не обращаться можно сделать так 
+  Card({card, onCardClick, onCardLike, onCardDelete })*/
+  
   const currentUser = useContext(CurrentUserContext);
 
   const isOwn = props.card.owner._id === currentUser.id;

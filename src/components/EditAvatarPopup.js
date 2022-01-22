@@ -10,9 +10,15 @@ const EditAvatarPopup = (props) => {
   Не использована обычная переменная, т.к. при ее использовании валидность - автоматически false, 
   и пользователю сразу подсвечивается, что он уже неправ, хоть и ничего еще не ввел :) 
 */
-  const [inputAvatarClass, setInputAvatarClass] = useState(
+
+/*validMessageAvatar 
+когда есть сообщение  -- показывать класс с ошибкой и не показывать когда сообщения нет
+спасибо, сама бы не додумалась ))
+*/
+
+/*  const [inputAvatarClass, setInputAvatarClass] = useState(
     "popup__input popup__input_type_avatar"
-  );
+  );*/
 
   const avatarRef = useRef("");
 
@@ -20,11 +26,6 @@ const EditAvatarPopup = (props) => {
     const isValid = avatarRef.current.validity.valid;
     setInputValidAvatar(isValid);
     setValidMessageAvatar(avatarRef.current.validationMessage);
-    setInputAvatarClass(
-      `popup__input popup__input_type_avatar ${
-        isValid ? "" : "popup__input_state_invalid"
-      }`
-    );
   }
 
   function handleSubmit(e) {
@@ -49,7 +50,7 @@ const EditAvatarPopup = (props) => {
       title="Обновить аватар"
       isOpen={props.isOpen}
       onClose={props.onClose}
-      saveButton="Отправить"
+      buttonText="Отправить"
       onSubmit={handleSubmit}
       isValid={inputValidAvatar}
       isLoading={props.isLoading}
@@ -60,7 +61,7 @@ const EditAvatarPopup = (props) => {
             ref={avatarRef}
             type="URL"
             onChange={checkAvatarValidity}
-            className={inputAvatarClass}
+            className={`popup__input popup__input_type_avatar ${ validMessageAvatar === '' ? '' : "popup__input_state_invalid" }`}
             placeholder="URL"
             required
             name="avatarupdate"

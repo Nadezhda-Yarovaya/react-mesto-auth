@@ -30,11 +30,11 @@ const PopupWithForm = (props) => {
               className={submitButClassName}
               value={
                 props.isLoading
-                  ? props.creationText
-                    ? props.creationText
+                  ? props.pendingText
+                    ? props.pendingText
                     : "Сохранение ..."
-                  : props.saveButton
-                  ? props.saveButton
+                  : props.buttonText
+                  ? props.buttonText
                   : "Сохранить"
               }
               disabled={!props.isValid}

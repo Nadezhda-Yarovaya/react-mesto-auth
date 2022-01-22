@@ -174,8 +174,9 @@ function App() {
   }
 
   function checkToken() {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      
       auth.getToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
@@ -193,7 +194,7 @@ function App() {
       .then((res) => {
         if (res) {
           setPopupRegisterIsOpen(true);
-          setIsSuccess(true);
+          setHasSuccess(true);
 
           setTimeout(() => {
             closeRegisterPopup();
@@ -201,7 +202,7 @@ function App() {
           }, 1200);
         } else {
           setPopupRegisterIsOpen(true);
-          setIsSuccess(false);
+          setHasSuccess(false);
           setTimeout(() => {
             closeRegisterPopup();
           }, 1200);
@@ -239,7 +240,7 @@ function App() {
 
   /* register popup */
   const [popupRegisterIsOpen, setPopupRegisterIsOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [hasSuccess, setHasSuccess] = useState(true);
   function closeRegisterPopup() {
     setPopupRegisterIsOpen(false);
   }
@@ -249,7 +250,7 @@ function App() {
       <>
         <div className="App">
           <div className="page">
-            <Header loggedIn={loggedIn} signOut={signOut} email={email} />
+            <Header signOut={signOut} email={email} />
             <Switch>
               <Route path="/signin">
                 <Login onSubmit={handleLoginSubmit} />
@@ -314,12 +315,15 @@ function App() {
 
         <InfoTooltip
           isOpen={popupRegisterIsOpen}
-          isSuccess={isSuccess}
+          hasSuccess={hasSuccess}
           onClose={closeRegisterPopup}
         />
       </>
     </CurrentUserContext.Provider>
   );
 }
+
+/*в withRouter компонент можно не оборачивать, единственное что он делает, это добавляет в компонент пропсы props.location, props.history
+есть хуки,и этот withRouter не нужен*/
 
 export default withRouter(App);

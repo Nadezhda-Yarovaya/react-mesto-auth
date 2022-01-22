@@ -8,8 +8,8 @@ const InfoTooltip = (props) => {
       <div className={`popup ${props.isOpen && ('popup_opened')}`}>
         <div className="popup__container">
           <div className="register-popup">
-            <img src={props.isSuccess ? successLogo : failureLogo} className="register-popup__logo" alt={props.isSuccess ? 'Успешная регистрация' : 'Неудачная регистрация'} />
-            <p className="register-popup__text">{props.isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так, попробуйте еще раз'}</p>
+            <img src={props.hasSuccess ? successLogo : failureLogo} className="register-popup__logo" alt={props.hasSuccess ? 'Успешная регистрация' : 'Неудачная регистрация'} />
+            <p className="register-popup__text">{props.hasSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так, попробуйте еще раз'}</p>
           </div>
           <button
             type="button"

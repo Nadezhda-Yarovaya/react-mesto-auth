@@ -13,11 +13,11 @@ const DeleteCardPopup = (props) => {
       title="Вы уверены?"
       isOpen={props.isOpen}
       onClose={props.onClose}
-      saveButton="Да"
+      buttonText="Да"
       onSubmit={handleSubmit}
-      isValid={true}
+      isValid
       isLoading={props.isLoading}
-      creationText="Удаление..."
+      pendingText="Удаление..."
     >
       <label className="popup__label"></label>
     </PopupWithForm>

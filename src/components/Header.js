@@ -15,8 +15,7 @@ const Header = (props) => {
 
       <div className="header__logged-in-info">
         <Switch>
-          <Route path="/" exact>
-            {props.loggedIn ? (
+          <Route path="/" exact>       
               <>
                 <p className="header__email">{props.email}</p>
                 <button
@@ -26,9 +25,6 @@ const Header = (props) => {
                   Выйти
                 </button>
               </>
-            ) : (
-              ""
-            )}{" "}
           </Route>
           <Route path="/signin">
             <Link to="./sign-up" className="header__link-button">
