@@ -1,39 +1,59 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import { useState, useRef } from 'react';
+import React from "react";
+import PopupWithForm from "./PopupWithForm";
+import { useState, useRef } from "react";
 
 const EditAvatarPopup = (props) => {
   const [inputValidAvatar, setInputValidAvatar] = useState(false);
-  const [validMessageAvatar, setValidMessageAvatar] = useState('');
-  const [inputAvatarClass, setInputAvatarClass] = useState('popup__input popup__input_type_avatar');
-  const avatarRef = useRef('');
+  const [validMessageAvatar, setValidMessageAvatar] = useState("");
+
+  /* Первоначальная загрузка - со стейт переменной, которая не проверяет валидность. 
+  Не использована обычная переменная, т.к. при ее использовании валидность - автоматически false, 
+  и пользователю сразу подсвечивается, что он уже неправ, хоть и ничего еще не ввел :) 
+*/
+  const [inputAvatarClass, setInputAvatarClass] = useState(
+    "popup__input popup__input_type_avatar"
+  );
+
+  const avatarRef = useRef("");
 
   function checkAvatarValidity() {
     const isValid = avatarRef.current.validity.valid;
     setInputValidAvatar(isValid);
     setValidMessageAvatar(avatarRef.current.validationMessage);
-    setInputAvatarClass(`popup__input popup__input_type_avatar ${isValid ? '' : 'popup__input_state_invalid'}`);
+    setInputAvatarClass(
+      `popup__input popup__input_type_avatar ${
+        isValid ? "" : "popup__input_state_invalid"
+      }`
+    );
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.changeSaveText(true);
-    props.onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    }, handleClear);
+    props.onUpdateAvatar(
+      {
+        avatar: avatarRef.current.value,
+      },
+      handleClear
+    );
   }
 
   function handleClear() {
-    avatarRef.current.value = '';
-    setValidMessageAvatar('');
+    avatarRef.current.value = "";
+    setValidMessageAvatar("");
     setInputValidAvatar(false);
   }
 
   return (
-    <PopupWithForm name="upd-avatar" title="Обновить аватар" isOpen={props.isOpen}
-      onClose={props.onClose} saveButton={props.saveButton} onSubmit={handleSubmit} isValid
-      ={inputValidAvatar}
-      isLoading={props.isLoading} >
+    <PopupWithForm
+      name="upd-avatar"
+      title="Обновить аватар"
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      saveButton="Отправить"
+      onSubmit={handleSubmit}
+      isValid={inputValidAvatar}
+      isLoading={props.isLoading}
+    >
       <label className="popup__label">
         <section className="popup__section">
           <input
@@ -44,17 +64,18 @@ const EditAvatarPopup = (props) => {
             placeholder="URL"
             required
             name="avatarupdate"
-            id="avatarupdateinput" autoComplete="off"
+            id="avatarupdateinput"
+            autoComplete="off"
             minLength="2"
             maxLength="200"
           />
-          <span className="popup__input-error avatarupdateinput-error">{validMessageAvatar}
+          <span className="popup__input-error avatarupdateinput-error">
+            {validMessageAvatar}
           </span>
         </section>
       </label>
     </PopupWithForm>
-
   );
-}
+};
 
 export default EditAvatarPopup;
